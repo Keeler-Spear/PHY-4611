@@ -1,3 +1,6 @@
+//To run this code you need to have my Chart, Mathematics, and Physics libraries installed.
+
+
 public class Project2 {
 
     static Item baseball = new Item(0.145, 4.3e-3, 0.35);
