@@ -35,14 +35,14 @@ public class Project2 {
         //2.4
         System.out.println("Problem 2.4\n");
         double approx;
-        System.out.println("Euler's Method with h = 0.075:");
-        approx = ball(0, 50, 45, 0.075, 1, false, noWind, false, true);
+        System.out.println("Euler's Method with h = 0.072:");
+        approx = ball(0, 50, 45, 0.072, 1, false, noWind, false, true);
         System.out.println("Relative Error: " + String.format("%.3f", (100 *Error.relative(trueRange, approx))));
-        System.out.println("\nEuler-Cromer Method with h = 0.07:");
-        approx = ball(0, 50, 45, 0.07, 2, false, noWind, false, true);
+        System.out.println("\nEuler-Cromer Method with h = 0.073:");
+        approx = ball(0, 50, 45, 0.073, 2, false, noWind, false, true);
         System.out.println("Relative Error: " + String.format("%.3f", (100 *Error.relative(trueRange, approx))));
-        System.out.println("\nMidpoint Method with h = 1.476:");
-        approx = ball(0, 50, 45, 1.476, 3, false, noWind, false, true);
+        System.out.println("\nMidpoint Method with h = 1.475:");
+        approx = ball(0, 50, 45, 1.475, 3, false, noWind, false, true);
         System.out.println("Relative Error: " + String.format("%.3f", (100 *Error.relative(trueRange, approx))));
 
         System.out.println("\nProblem 2.5\n");
@@ -51,8 +51,8 @@ public class Project2 {
         //2.9
         System.out.println("\nProblem 2.9\n");
         System.out.println("See Graph");
-        Simulation.plotRangeVSWind(baseball, 1, 49.17, 35, 0.1, 3, true, -40, 40);
-        Simulation.plotRangeVSWind(baseball, 1, 49.17, 35, 0.1, 3, true, -150, 150);
+        double range = 150;
+        Simulation.plotRangeVSWind(baseball, 1, 49.17, 35, 0.1, 3, true, -range, range);
 
         //2.10
         System.out.println("\nProblem 2.10\n");
