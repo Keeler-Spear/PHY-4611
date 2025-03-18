@@ -44,8 +44,9 @@ public class Project3 {
 //        System.out.println(LinearAlgebra.transpose(vs));
 //        Orbit.plotStepVsV0(hs, vs);p
 
-        Matrix[] orbit = Orbit.calculate(1, Math.PI, 200, 0.005, 3);
+        Matrix[] orbit = Orbit.calculate(1, Math.PI / 2.0, 20, 0.1, 4);
         Orbit.plotTrajectory(orbit[0], orbit[1]);
+        Orbit.plotEnergy(orbit[2], orbit[3], orbit[4]);
 
     }
 
