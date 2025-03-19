@@ -11,7 +11,7 @@ public class Project3 {
         Matrix totE;
 
         while (h <= maxH) {
-            orbit = Orbit.calculate(r0, v0, (int) (arcLen / h), h, method);
+            orbit = Orbit.calculate(r0, v0, (int) (arcLen / h), h, method, false, false);
             totE = LinearAlgebra.addMatrices(orbit[3], orbit[4], 1);
             double error = Error.relative(totE.getValue(1,1), totE.getValue(totE.getRows(),1));
 
@@ -33,20 +33,67 @@ public class Project3 {
     public static void main(String[] args) {
 
         //3.6
-//        double au = 35;
-//        Matrix hs = new Matrix (6, 1);
-//        Matrix vs = new Matrix (6, 1);
+        System.out.println("\nProblem 3.6\n");
+        double hcAU = 35; //Haley's comet initial position
+        double hcv0 = 0.19; //Haley's comet initial velocity
+
+        Matrix hs;
+        Matrix vs;
+        Matrix interp;
+        double idealStepSize;
+        Matrix[] hc;
+        hs = new Matrix (6, 1);
+        vs = new Matrix (6, 1);
+        for (int i = 1; i <= 6; i++) {
+            hs.setValue(i, 1, find1PELoss(hcAU, 0.5 + 0.1 * (i - 1), 2));
+            vs.setValue(i, 1, 0.5 + 0.1 * (i - 1));
+        }
+        interp = Interpolation.polynomial(vs, hs, new Matrix(new double[]{0.19}));
+        idealStepSize = find1PELoss(hcAU, 0.19, 2);
+
+        System.out.println("Recommended Step Size for tracking Haley's Comet based on Interpolation: " + interp.getValue(1, 1));
+        System.out.println("Recommended Step Size for tracking Haley's Comet: " + idealStepSize);
+        Orbit.plotStepVsV0(hs, vs);
+//
+//        //Plotting HC with the ideal step size
+        hc = Orbit.calculate(hcAU, hcv0, (int) (arcLen / idealStepSize), idealStepSize, 2, false, false);
+        Orbit.plotTrajectory(hc[0], hc[1]);
+
+        //3.11
+        System.out.println("\nProblem 3.11\n");
+        //My computer cannot handle running the following code within a reasonable time frame.
+//        hs = new Matrix (6, 1);
+//        vs = new Matrix (6, 1);
 //        for (int i = 1; i <= 6; i++) {
-//            hs.setValue(i, 1, find1PELoss(au, 0.5 + 0.1 * (i - 1), 2));
+//            hs.setValue(i, 1, find1PELoss(hcAU, 0.5 + 0.1 * (i - 1), 3));
 //            vs.setValue(i, 1, 0.5 + 0.1 * (i - 1));
 //        }
-//        System.out.println(LinearAlgebra.transpose(hs));
-//        System.out.println(LinearAlgebra.transpose(vs));
-//        Orbit.plotStepVsV0(hs, vs);p
+//        interp = Interpolation.polynomial(vs, hs, new Matrix(new double[]{0.19}));
+        idealStepSize = find1PELoss(hcAU, 0.19, 3);
 
-        Matrix[] orbit = Orbit.calculate(1, Math.PI / 2.0, 20, 0.1, 4);
-        Orbit.plotTrajectory(orbit[0], orbit[1]);
-        Orbit.plotEnergy(orbit[2], orbit[3], orbit[4]);
+//        System.out.println("Recommended Step Size for tracking Haley's Comet based on Interpolation: " + interp.getValue(1, 1));
+        System.out.println("Recommended Step Size for tracking Haley's Comet: " + idealStepSize);
+//        Orbit.plotStepVsV0(hs, vs);
+
+        //Plotting HC with the ideal step size
+        hc = Orbit.calculate(hcAU, hcv0, (int) (arcLen / idealStepSize), idealStepSize, 2, false, false);
+        Orbit.plotTrajectory(hc[0], hc[1]);
+
+        //alpha = -0.5 is used here.
+        System.out.println("\nProblem 3.14\n");
+        //3.14
+        System.out.println("Orbit of Procession for Haley's Comet when alpha = -0.5: " + Orbit.calculateOrbitOfProcession(hcAU, hcv0));
+        hc = Orbit.calculate(hcAU, hcv0, 10000, 0.1, 4, true, false);
+        Orbit.plotTrajectory(hc[0], hc[1]);
+
+        //3.15
+        System.out.println("\nProblem 3.15\n");
+        hc = Orbit.calculate(hcAU, hcv0, 10000, 0.1, 4, false, true);
+        Orbit.plotTrajectory(hc[0], hc[1]);
+        Orbit.plotEnergy(hc[2], hc[3], hc[4]);
+
+
+
 
     }
 
